@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Prefer.
+
   runApp(MyApp());
 }
 
