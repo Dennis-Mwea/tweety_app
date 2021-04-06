@@ -1,6 +1,7 @@
 import 'package:tweety_app/config/Constants.dart';
 import 'package:tweety_app/main.dart';
 import 'package:tweety_app/models/Auth.dart';
+import 'package:tweety_app/models/User.dart';
 import 'package:tweety_app/network/ApiResult.dart';
 import 'package:tweety_app/network/NetworkClient.dart';
 import 'package:tweety_app/providers/BaseProvider.dart';
@@ -22,6 +23,18 @@ class AuthenticationProvider extends BaseAuthenticationProvider {
       await SharedObjects.prefs.setString(Constants.accessToken, auth.token);
 
       return ApiResult<Auth>.success(data: auth);
+    } catch (e) {
+      return ApiResult.failure(error: NetworkExceptions.getDioException(e));
+    }
+  }
+
+  @override
+  Future<ApiResult<User>> user() async {
+    try {
+      final response = await locator<NetworkClient>().authClient.get('profile');
+      final user = User.fromJson(response['data']);
+
+      return ApiResult<User>.success(data: user);
     } catch (e) {
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }

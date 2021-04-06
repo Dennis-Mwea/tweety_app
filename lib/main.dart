@@ -9,6 +9,7 @@ import 'package:tweety_app/blocs/theme/Bloc.dart';
 import 'package:tweety_app/config/AppTheme.dart';
 import 'package:tweety_app/network/NetworkClient.dart';
 import 'package:tweety_app/pages/SplashPage.dart';
+import 'package:tweety_app/pages/home/HomePage.dart';
 import 'package:tweety_app/pages/login/LoginPage.dart';
 import 'package:tweety_app/repositories/AuthenticationRepository.dart';
 import 'package:tweety_app/utils/SharedObjects.dart';
@@ -69,7 +70,7 @@ class AppView extends StatelessWidget {
                     _navigator!.pushAndRemoveUntil(LoginPage.route(), (route) => false);
                     break;
                   case AuthStatus.authenticated:
-                    // TODO: Handle this case.
+                    _navigator!.pushAndRemoveUntil(HomePage.route(), (route) => false);
                     break;
                   default:
                     _navigator!.pushAndRemoveUntil(LoginPage.route(), (route) => false);
