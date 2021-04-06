@@ -4,10 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:tweety_app/blocs/auth/AuthBloc.dart';
+import 'package:tweety_app/blocs/auth/Bloc.dart';
 import 'package:tweety_app/blocs/theme/Bloc.dart';
 import 'package:tweety_app/config/AppTheme.dart';
 import 'package:tweety_app/network/NetworkClient.dart';
+import 'package:tweety_app/pages/SplashPage.dart';
 import 'package:tweety_app/pages/login/LoginPage.dart';
 import 'package:tweety_app/repositories/AuthenticationRepository.dart';
 import 'package:tweety_app/utils/SharedObjects.dart';
@@ -22,25 +23,25 @@ Future<void> main() async {
   EquatableConfig.stringify = kDebugMode;
   Bloc.observer = SimpleBlocObserver();
   Fimber.plantTree(DebugTree.elapsed());
-  locator.registerLazySingleton(() => NetworkClient('http://192.168.100.32:8000/'));
+  locator.registerLazySingleton(() => NetworkClient('http://192.168.100.32:8000/api/'));
   // Prefs.themeIndexPref = Prefs.prefs.getInt('theme') ?? 0;
 
-  runApp(MultiRepositoryProvider(providers: [
-    RepositoryProvider(create: (_) => AuthenticationRepository()),
-  ], child: Tweety()));
-}
+  final AuthenticationRepository _authRepository = AuthenticationRepository();
 
-class Tweety extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(
+  runApp(
+    MultiRepositoryProvider(
       providers: [
-        BlocProvider(create: (_) => ThemeBloc()),
-        BlocProvider(create: (_) => AuthBloc()),
+        RepositoryProvider(create: (_) => AuthenticationRepository()),
       ],
-      child: AppView(),
-    );
-  }
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => ThemeBloc()),
+          BlocProvider(create: (_) => AuthBloc(repository: _authRepository)..add(AuthStarted())),
+        ],
+        child: AppView(),
+      ),
+    ),
+  );
 }
 
 class AppView extends StatelessWidget {
@@ -56,8 +57,27 @@ class AppView extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Tweety',
           theme: AppTheme.appTheme[state],
-          onGenerateRoute: (_) => LoginPage.route(),
+          onGenerateRoute: (_) => SplashPage.route(),
           navigatorKey: _navigatorKey,
+          builder: (context, child) {
+            return BlocListener<AuthBloc, AuthState>(
+              listenWhen: (previous, current) => previous.status != current.status,
+              child: child,
+              listener: (context, state) {
+                switch (state.status) {
+                  case AuthStatus.unauthenticated:
+                    _navigator!.pushAndRemoveUntil(LoginPage.route(), (route) => false);
+                    break;
+                  case AuthStatus.authenticated:
+                    // TODO: Handle this case.
+                    break;
+                  default:
+                    _navigator!.pushAndRemoveUntil(LoginPage.route(), (route) => false);
+                    break;
+                }
+              },
+            );
+          },
         );
       },
     );

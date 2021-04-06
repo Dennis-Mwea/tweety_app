@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^7.0.0
-  equatable: ^2.0.0
+  equatable: ^2.0.0-nullsafety.0
   flutter_svg:
   shared_preferences: ^2.0.5
   formz: ^0.3.2

@@ -2,6 +2,7 @@
     package="com.example.tweety_app">
    <application
         android:label="tweety_app"
+       android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

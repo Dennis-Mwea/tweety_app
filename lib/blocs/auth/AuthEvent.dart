@@ -19,4 +19,4 @@ class AuthUserChanged extends AuthEvent {
 
 class AuthLogoutRequested extends AuthEvent {}
 
-class FetchUser extends AuthEvent {}
+class AuthStarted extends AuthEvent {}
