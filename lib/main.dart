@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tweety_app/blocs/auth/Bloc.dart';
+import 'package:tweety_app/blocs/chat/Bloc.dart';
 import 'package:tweety_app/blocs/theme/Bloc.dart';
 import 'package:tweety_app/config/AppTheme.dart';
 import 'package:tweety_app/network/NetworkClient.dart';
@@ -12,6 +13,7 @@ import 'package:tweety_app/pages/SplashPage.dart';
 import 'package:tweety_app/pages/home/HomePage.dart';
 import 'package:tweety_app/pages/login/LoginPage.dart';
 import 'package:tweety_app/repositories/AuthenticationRepository.dart';
+import 'package:tweety_app/repositories/ChatRepository.dart';
 import 'package:tweety_app/utils/SharedObjects.dart';
 import 'package:tweety_app/utils/SimpleBlocObserver.dart';
 
@@ -28,16 +30,19 @@ Future<void> main() async {
   // Prefs.themeIndexPref = Prefs.prefs.getInt('theme') ?? 0;
 
   final AuthenticationRepository _authRepository = AuthenticationRepository();
+  final ChatRepository _chatRepository = ChatRepository();
 
   runApp(
     MultiRepositoryProvider(
       providers: [
-        RepositoryProvider(create: (_) => AuthenticationRepository()),
+        RepositoryProvider.value(value: _authRepository),
+        RepositoryProvider.value(value: _chatRepository),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => ThemeBloc()),
           BlocProvider(create: (_) => AuthBloc(repository: _authRepository)..add(AuthStarted())),
+          BlocProvider(create: (context) => ChatBloc(repository: _chatRepository))
         ],
         child: AppView(),
       ),
