@@ -1,6 +1,6 @@
-import 'package:core/src/common/status.dart';
+import 'package:core/common/status.dart';
+import 'package:core/service/navigation_service.dart';
 import 'package:core/src/di/locator.dart';
-import 'package:core/src/service/navigation_service.dart';
 import 'package:stacked/stacked.dart';
 
 abstract class CoreViewModel extends BaseViewModel {
