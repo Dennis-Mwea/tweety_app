@@ -1,7 +1,16 @@
-library core;
+import 'package:auto_route/auto_route.dart';
+import 'package:core/src/di/locator.dart';
 
 /// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
+class Core {
+  static void init() {
+    // setup required locators for core module
+    setupLocator();
+  }
+
+  static RootStackRouter routBuilder(RootStackRouter router) {
+    locator.registerLazySingleton<StackRouter>(() => router);
+
+    return router;
+  }
 }
