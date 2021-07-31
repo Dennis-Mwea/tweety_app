@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 
 final locator = GetIt.instance..allowReassignment = true;
 
-@InjectableInit()
+@injectableInit
 void setupLocator() {
   _init(locator);
 
