@@ -1,7 +1,7 @@
-library data;
+import 'package:data/src/di/locator.dart';
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
+class Data {
+  static void init() {
+    setupLocator();
+  }
 }
