@@ -23,7 +23,7 @@ class DioClient {
       ..httpClientAdapter
       ..options.headers.addAll({'Accept': 'application/json'});
     if (interceptors?.isNotEmpty ?? false) {
-      _dio!.interceptors.addAll(interceptors);
+      _dio!.interceptors.addAll(interceptors ?? []);
     }
     if (kDebugMode) {
       _dio!.interceptors.add(PrettyDioLogger(
@@ -39,14 +39,13 @@ class DioClient {
       bool refresh = false,
       Duration? duration}) async {
     try {
-      if (options != null)
-        options.headers.addAll({
-          'content-type': 'application/json; charset=UTF-8',
-          'Content-Type': 'application/json; charset=UTF-8',
-        });
+      // if (options != null)
+      // options.headers.addAll({
+      //   'content-type': 'application/json; charset=UTF-8',
+      //   'Content-Type': 'application/json; charset=UTF-8',
+      // });
 
-      var response = await _dio!
-          .get(uri, queryParameters: queryParameters, options: options, cancelToken: cancelToken, onReceiveProgress: onReceiveProgress);
+      var response = await _dio!.get(uri);
 
       return response.data;
     } on SocketException catch (e) {
@@ -68,18 +67,12 @@ class DioClient {
       bool hasFile = false}) async {
     try {
       if (!hasFile && options != null) {
-        options.headers.addAll({
-          'content-type': 'application/json; charset=UTF-8',
-          'Content-Type': 'application/json; charset=UTF-8',
-        });
+        // options.headers.addAll({
+        //   'content-type': 'application/json; charset=UTF-8',
+        //   'Content-Type': 'application/json; charset=UTF-8',
+        // });
       }
-      var response = await _dio!.post(uri,
-          data: data,
-          queryParameters: queryParameters,
-          options: options,
-          cancelToken: cancelToken,
-          onSendProgress: onSendProgress,
-          onReceiveProgress: onReceiveProgress);
+      var response = await _dio!.post(uri, data: data);
       return response.data;
     } on FormatException catch (_) {
       throw FormatException("Unable to process the data.");
@@ -98,19 +91,13 @@ class DioClient {
       ProgressCallback? onReceiveProgress}) async {
     try {
       if (!hasFile && options != null) {
-        options.headers.addAll({
-          'content-type': 'application/json; charset=UTF-8',
-          'Content-Type': 'application/json; charset=UTF-8',
-        });
+        // options.headers.addAll({
+        //   'content-type': 'application/json; charset=UTF-8',
+        //   'Content-Type': 'application/json; charset=UTF-8',
+        // });
       }
 
-      var response = await _dio!.request(uri,
-          data: data,
-          queryParameters: queryParameters,
-          options: options,
-          cancelToken: cancelToken,
-          onSendProgress: onSendProgress,
-          onReceiveProgress: onReceiveProgress);
+      var response = await _dio!.request(uri, data: data);
 
       return response.data;
     } on FormatException catch (_) {

@@ -53,54 +53,56 @@ abstract class NetworkExceptions with _$NetworkExceptions {
         NetworkExceptions? networkExceptions;
         if (error is DioError) {
           switch (error.type) {
-            case DioErrorType.CANCEL:
-              networkExceptions = NetworkExceptions.requestCancelled();
-              break;
-            case DioErrorType.CONNECT_TIMEOUT:
-              networkExceptions = NetworkExceptions.requestTimeout();
-              break;
-            case DioErrorType.DEFAULT:
-              networkExceptions = NetworkExceptions.noInternetConnection();
-              break;
-            case DioErrorType.RECEIVE_TIMEOUT:
-              networkExceptions = NetworkExceptions.sendTimeout();
-              break;
-            case DioErrorType.RESPONSE:
-              switch (error.response.statusCode) {
-                case 400:
-                  networkExceptions = NetworkExceptions.unauthorisedRequest((error.response.data as Map)['message']);
-                  break;
-                case 401:
-                  networkExceptions = NetworkExceptions.unauthenticatedRequest();
-                  break;
-                case 403:
-                  networkExceptions = NetworkExceptions.unauthorisedRequest((error.response.data as Map)['message']);
-                  break;
-                case 404:
-                  networkExceptions = NetworkExceptions.notFound((error.response.data as Map)['message']);
-                  break;
-                case 409:
-                  networkExceptions = NetworkExceptions.conflict();
-                  break;
-                case 408:
-                  networkExceptions = NetworkExceptions.requestTimeout();
-                  break;
-                case 422:
-                  networkExceptions = NetworkExceptions.unProcessableEntity(error.response.data);
-                  break;
-                case 500:
-                  networkExceptions = NetworkExceptions.internalServerError();
-                  break;
-                case 503:
-                  networkExceptions = NetworkExceptions.serviceUnavailable();
-                  break;
-                default:
-                  var responseCode = error.response.statusCode;
-                  networkExceptions = NetworkExceptions.defaultError("Received invalid status code: $responseCode");
-              }
-              break;
-            case DioErrorType.SEND_TIMEOUT:
-              networkExceptions = NetworkExceptions.sendTimeout();
+            // case DioErrorType.CANCEL:
+            //   networkExceptions = NetworkExceptions.requestCancelled();
+            //   break;
+            // case DioErrorType.CONNECT_TIMEOUT:
+            //   networkExceptions = NetworkExceptions.requestTimeout();
+            //   break;
+            // case DioErrorType.DEFAULT:
+            //   networkExceptions = NetworkExceptions.noInternetConnection();
+            //   break;
+            // case DioErrorType.RECEIVE_TIMEOUT:
+            //   networkExceptions = NetworkExceptions.sendTimeout();
+            //   break;
+            // case DioErrorType.RESPONSE:
+            //   switch (error.response.statusCode) {
+            //     case 400:
+            //       networkExceptions = NetworkExceptions.unauthorisedRequest((error.response.data as Map)['message']);
+            //       break;
+            //     case 401:
+            //       networkExceptions = NetworkExceptions.unauthenticatedRequest();
+            //       break;
+            //     case 403:
+            //       networkExceptions = NetworkExceptions.unauthorisedRequest((error.response.data as Map)['message']);
+            //       break;
+            //     case 404:
+            //       networkExceptions = NetworkExceptions.notFound((error.response.data as Map)['message']);
+            //       break;
+            //     case 409:
+            //       networkExceptions = NetworkExceptions.conflict();
+            //       break;
+            //     case 408:
+            //       networkExceptions = NetworkExceptions.requestTimeout();
+            //       break;
+            //     case 422:
+            //       networkExceptions = NetworkExceptions.unProcessableEntity(error.response.data);
+            //       break;
+            //     case 500:
+            //       networkExceptions = NetworkExceptions.internalServerError();
+            //       break;
+            //     case 503:
+            //       networkExceptions = NetworkExceptions.serviceUnavailable();
+            //       break;
+            //     default:
+            //       var responseCode = error.response!.statusCode;
+            //       networkExceptions = NetworkExceptions.defaultError("Received invalid status code: $responseCode");
+            //   }
+            //   break;
+            // case DioErrorType.SEND_TIMEOUT:
+            //   networkExceptions = NetworkExceptions.sendTimeout();
+            //   break;
+            default:
               break;
           }
         } else if (error is SocketException) {

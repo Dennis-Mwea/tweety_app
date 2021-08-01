@@ -1,91 +1,30 @@
-import 'package:equatable/equatable.dart';
-import 'package:fimber/fimber.dart';
-import 'package:flutter/foundation.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:tweety_app/blocs/auth/Bloc.dart';
-import 'package:tweety_app/blocs/chat/Bloc.dart';
-import 'package:tweety_app/blocs/theme/Bloc.dart';
+import 'package:presentation/presentation.dart';
 import 'package:tweety_app/config/AppTheme.dart';
-import 'package:tweety_app/network/NetworkClient.dart';
-import 'package:tweety_app/pages/SplashPage.dart';
-import 'package:tweety_app/pages/home/HomePage.dart';
-import 'package:tweety_app/pages/login/LoginPage.dart';
-import 'package:tweety_app/repositories/AuthenticationRepository.dart';
-import 'package:tweety_app/repositories/ChatRepository.dart';
-import 'package:tweety_app/utils/SharedObjects.dart';
-import 'package:tweety_app/utils/SimpleBlocObserver.dart';
-
-GetIt locator = GetIt.instance;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  SharedObjects.prefs = await CachedSharedPreferences.getInstance();
-  EquatableConfig.stringify = kDebugMode;
-  Bloc.observer = SimpleBlocObserver();
-  Fimber.plantTree(DebugTree.elapsed());
-  locator.registerLazySingleton(() => NetworkClient('http://192.168.100.32:8000/api/'));
-  // Prefs.themeIndexPref = Prefs.prefs.getInt('theme') ?? 0;
+  /// since main module is dependent on Core module and Feature module
+  /// we need to init these dependent modules here
+  Core.init();
+  Presentation.init();
 
-  final AuthenticationRepository _authRepository = AuthenticationRepository();
-  final ChatRepository _chatRepository = ChatRepository();
-
-  runApp(
-    MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider.value(value: _authRepository),
-        RepositoryProvider.value(value: _chatRepository),
-      ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (_) => ThemeBloc()),
-          BlocProvider(create: (_) => AuthBloc(repository: _authRepository)..add(AuthStarted())),
-          BlocProvider(create: (context) => ChatBloc(repository: _chatRepository))
-        ],
-        child: AppView(),
-      ),
-    ),
-  );
+  runApp(MyApp());
 }
 
-class AppView extends StatelessWidget {
-  final _navigatorKey = GlobalKey<NavigatorState>();
-  NavigatorState? get _navigator => _navigatorKey.currentState;
+class MyApp extends StatelessWidget {
+  final _coreRouter = Core.routBuilder(Presentation.getFeatureRouter());
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBloc, ThemeData>(
-      buildWhen: (previous, current) => previous != current,
-      builder: (context, state) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Tweety',
-          theme: AppTheme.appTheme[state],
-          onGenerateRoute: (_) => SplashPage.route(),
-          navigatorKey: _navigatorKey,
-          builder: (context, child) {
-            return BlocListener<AuthBloc, AuthState>(
-              listenWhen: (previous, current) => previous.status != current.status,
-              child: child,
-              listener: (context, state) {
-                switch (state.status) {
-                  case AuthStatus.unauthenticated:
-                    _navigator!.pushAndRemoveUntil(LoginPage.route(), (route) => false);
-                    break;
-                  case AuthStatus.authenticated:
-                    _navigator!.pushAndRemoveUntil(HomePage.route(), (route) => false);
-                    break;
-                  default:
-                    _navigator!.pushAndRemoveUntil(LoginPage.route(), (route) => false);
-                    break;
-                }
-              },
-            );
-          },
-        );
-      },
+    return MaterialApp.router(
+      routeInformationParser: _coreRouter.defaultRouteParser(),
+      routerDelegate: _coreRouter.delegate(),
+      title: 'Flutter Clean Architecture Sample',
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.appTheme[Themes.Dark],
     );
   }
 }
