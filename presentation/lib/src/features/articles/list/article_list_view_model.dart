@@ -1,6 +1,7 @@
 import 'package:core/core/core_view_model.dart';
 import 'package:core/service/toast_service.dart';
 import 'package:domain/domain.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:presentation/src/common/routes/router.dart';
 
@@ -12,8 +13,13 @@ class ArticleListViewModel extends CoreViewModel {
   List<ArticleModel> get articles => _articles;
   late String _errorMessage;
   String get errorMessage => _errorMessage;
+  late int _currentPage;
+  int get currentPage => _currentPage;
 
-  ArticleListViewModel(this._allArticlesUseCase, this._toastService) {
+  ArticleListViewModel(this._allArticlesUseCase, this._toastService);
+
+  void initialise() {
+    _currentPage = 0;
     loadArticles();
   }
 
@@ -21,7 +27,7 @@ class ArticleListViewModel extends CoreViewModel {
     loading();
 
     final results = await _allArticlesUseCase.getArticles();
-    results.when(success: (data) => _articles = data, error: (errorType, message) => _errorMessage = message);
+    results.when(success: (data) => _articles = data, error: (errorType, message) => throw Exception(errorType));
 
     loaded(results.isSuccessful);
     if (results.isSuccessful) {
@@ -31,5 +37,13 @@ class ArticleListViewModel extends CoreViewModel {
 
   void onArticleItemClicked(int id) {
     navigationService.push(ArticleDetailsScreenRoute(id: id));
+  }
+
+  void onBottomNavItemClicked(int index, AnimationController animationController, PageController pageController) {
+    animationController.forward(from: 0);
+
+    _currentPage = index;
+    pageController.jumpToPage(index);
+    notifyListeners();
   }
 }

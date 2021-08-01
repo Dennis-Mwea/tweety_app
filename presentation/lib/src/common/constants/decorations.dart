@@ -25,4 +25,14 @@ class Decorations {
         hintText: 'Password',
         errorText: error,
       );
+
+  static fabDecoration(BuildContext context) => BoxDecoration(
+        gradient: LinearGradient(colors: [Color(0xFF2F80ED), Color(0xFF56CCF2)]),
+        color: Theme.of(context).primaryColor,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(color: Color(0xFF2F80ED).withOpacity(.8), offset: Offset(0.0, 8.0), blurRadius: 8.0),
+          BoxShadow(color: Color(0xFF2F80ED).withOpacity(.8), offset: Offset(8.0, 0.0), blurRadius: 8.0)
+        ],
+      );
 }

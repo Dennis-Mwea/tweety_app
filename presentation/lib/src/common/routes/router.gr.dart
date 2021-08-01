@@ -31,7 +31,7 @@ class FeatureRouter extends _i1.RootStackRouter {
     ArticleListScreenRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return _i5.ArticleListScreen();
+          return const _i5.ArticleListScreen();
         }),
     ArticleDetailsScreenRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
         routeData: routeData,

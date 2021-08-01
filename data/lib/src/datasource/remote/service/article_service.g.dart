@@ -18,13 +18,12 @@ class _ArticleService implements ArticleService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<
-        ArticleResponse>(Options(
-            method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-        .compose(_dio.options,
-            'mostpopular/v2/mostviewed/all-sections/7.json?api-key=qtVlLSfH968rf6nd2tqbLPDnHnA7NLEb',
-            queryParameters: queryParameters, data: _data)
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ArticleResponse>(
+            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, '/tweets',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ArticleResponse.fromJson(_result.data!);
     return value;
   }

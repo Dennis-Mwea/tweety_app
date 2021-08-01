@@ -4,36 +4,43 @@ import 'package:domain/domain.dart';
 
 extension ArticleExtension on Article {
   ArticleModel toModel() => ArticleModel(
-        id: id,
-        title: title,
-        description: abstract,
-        imageUrl: media.length > 2
-            ? media[2].mediaMetadata![0].url
-            : media.length > 1
-                ? media[1].mediaMetadata![0].url
-                : media.length > 0
-                    ? media[0].mediaMetadata![0].url
-                    : '',
-        articleUrl: url,
-        date: publishedDate,
-      );
+      id: id,
+      userId: userId,
+      image: image,
+      body: body,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      isLiked: isLiked,
+      isDisliked: isDisliked,
+      repliesCount: repliesCount,
+      likesCount: likesCount,
+      dislikesCount: dislikesCount);
 
   ArticleEntity toEntity() => ArticleEntity(
       id: id,
-      title: title,
-      description: abstract,
-      imageUrl: media.length > 2
-          ? media[2].mediaMetadata![0].url
-          : media.length > 1
-              ? media[1].mediaMetadata![0].url
-              : media.length > 0
-                  ? media[0].mediaMetadata![0].url
-                  : "",
-      articleUrl: url,
-      date: publishedDate);
+      userId: userId,
+      image: image,
+      body: body,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      isLiked: isLiked,
+      isDisliked: isDisliked,
+      repliesCount: repliesCount,
+      likesCount: likesCount,
+      dislikesCount: dislikesCount);
 }
 
 extension ArticleEntityExtension on ArticleEntity {
-  ArticleModel toModel() =>
-      ArticleModel(id: id, title: title, description: description, imageUrl: imageUrl, articleUrl: articleUrl, date: date);
+  ArticleModel toModel() => ArticleModel(
+      id: id,
+      userId: userId,
+      image: image,
+      body: body,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      isLiked: isLiked,
+      isDisliked: isDisliked,
+      repliesCount: repliesCount,
+      likesCount: likesCount,
+      dislikesCount: dislikesCount);
 }

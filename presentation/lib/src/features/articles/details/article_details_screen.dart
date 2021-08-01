@@ -32,22 +32,22 @@ class ArticleDetailsScreen extends CoreScreen<ArticleDetailsViewModel> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             FadeInImage(
-              image: NetworkImage(viewModel.article.imageUrl),
+              image: NetworkImage(viewModel.article.image ?? ''),
               placeholder: AssetImage(Assets.placeholder),
               height: 300,
               fit: BoxFit.cover,
             ),
             Padding(
               padding: EdgeInsets.all(20),
-              child: Text(viewModel.article.title, style: TextStyle(fontSize: 22, color: Theme.of(context).accentColor)),
+              child: Text(viewModel.article.body, style: TextStyle(fontSize: 22, color: Theme.of(context).accentColor)),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-              child: Text(viewModel.article.description, style: TextStyle(fontSize: 20)),
+              child: Text(viewModel.article.body, style: TextStyle(fontSize: 20)),
             ),
             Padding(
               padding: EdgeInsets.only(right: 20),
-              child: Align(child: Text("${Strings.publishedOn} ${viewModel.article.date}"), alignment: Alignment.centerRight),
+              child: Align(child: Text("${Strings.publishedOn} ${viewModel.article.createdAt}"), alignment: Alignment.centerRight),
             ),
             Padding(
               padding: EdgeInsets.all(20),

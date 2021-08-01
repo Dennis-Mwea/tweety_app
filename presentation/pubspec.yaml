@@ -20,6 +20,8 @@ dependencies:
   auto_route: ^2.2.0
   get_it: ^7.2.0
   injectable: ^1.4.1
+  animations: ^2.0.1
+  stacked: ^2.2.3
 
 dev_dependencies:
   flutter_test:
@@ -34,9 +36,9 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
 
-  # To add assets to your package, add an assets section, like this:
   assets:
     - assets/
+
   # fonts:
   #   - family: Schyler
   #     fonts:

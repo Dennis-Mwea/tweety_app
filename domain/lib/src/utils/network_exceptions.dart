@@ -104,6 +104,7 @@ abstract class NetworkExceptions with _$NetworkExceptions {
         } else if (error is SocketException) {
           networkExceptions = NetworkExceptions.noInternetConnection();
         } else {
+          throw error;
           networkExceptions = NetworkExceptions.unexpectedError();
         }
 

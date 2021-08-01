@@ -4,17 +4,28 @@ import 'package:floor/floor.dart';
 class ArticleEntity {
   @primaryKey
   final int id;
-  final String title;
-  final String description;
-  final String imageUrl;
-  final String articleUrl;
-  final String date;
+  final int userId;
+  final String? image;
+  final String body;
+  final String createdAt;
+  final String updatedAt;
+  final bool isLiked;
+  final bool isDisliked;
+  final int repliesCount;
+  final int likesCount;
+  final int dislikesCount;
 
-  ArticleEntity(
-      {required this.id,
-      required this.title,
-      required this.description,
-      required this.imageUrl,
-      required this.articleUrl,
-      required this.date});
+  ArticleEntity({
+    required this.id,
+    required this.userId,
+    this.image,
+    required this.body,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.isLiked,
+    required this.isDisliked,
+    required this.repliesCount,
+    required this.likesCount,
+    required this.dislikesCount,
+  });
 }

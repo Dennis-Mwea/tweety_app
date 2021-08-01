@@ -44,8 +44,11 @@ class LoginScreen extends CoreScreen<LoginViewModel> {
                             children: [
                               Text(
                                 Strings.appName,
-                                style:
-                                    TextStyle(color: Theme.of(context).scaffoldBackgroundColor, fontWeight: FontWeight.w900, fontSize: 40),
+                                style: TextStyle(
+                                  color: Theme.of(context).scaffoldBackgroundColor,
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 40,
+                                ),
                               )
                             ],
                           ),

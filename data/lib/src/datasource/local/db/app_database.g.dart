@@ -81,7 +81,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `ArticleEntity` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `imageUrl` TEXT NOT NULL, `articleUrl` TEXT NOT NULL, `date` TEXT NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `ArticleEntity` (`id` INTEGER NOT NULL, `userId` INTEGER NOT NULL, `image` TEXT, `body` TEXT NOT NULL, `createdAt` TEXT NOT NULL, `updatedAt` TEXT NOT NULL, `isLiked` INTEGER NOT NULL, `isDisliked` INTEGER NOT NULL, `repliesCount` INTEGER NOT NULL, `likesCount` INTEGER NOT NULL, `dislikesCount` INTEGER NOT NULL, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -103,11 +103,16 @@ class _$ArticleDao extends ArticleDao {
             'ArticleEntity',
             (ArticleEntity item) => <String, Object?>{
                   'id': item.id,
-                  'title': item.title,
-                  'description': item.description,
-                  'imageUrl': item.imageUrl,
-                  'articleUrl': item.articleUrl,
-                  'date': item.date
+                  'userId': item.userId,
+                  'image': item.image,
+                  'body': item.body,
+                  'createdAt': item.createdAt,
+                  'updatedAt': item.updatedAt,
+                  'isLiked': item.isLiked ? 1 : 0,
+                  'isDisliked': item.isDisliked ? 1 : 0,
+                  'repliesCount': item.repliesCount,
+                  'likesCount': item.likesCount,
+                  'dislikesCount': item.dislikesCount
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -123,11 +128,16 @@ class _$ArticleDao extends ArticleDao {
     return _queryAdapter.queryList('SELECT * FROM ArticleEntity',
         mapper: (Map<String, Object?> row) => ArticleEntity(
             id: row['id'] as int,
-            title: row['title'] as String,
-            description: row['description'] as String,
-            imageUrl: row['imageUrl'] as String,
-            articleUrl: row['articleUrl'] as String,
-            date: row['date'] as String));
+            userId: row['userId'] as int,
+            image: row['image'] as String?,
+            body: row['body'] as String,
+            createdAt: row['createdAt'] as String,
+            updatedAt: row['updatedAt'] as String,
+            isLiked: (row['isLiked'] as int) != 0,
+            isDisliked: (row['isDisliked'] as int) != 0,
+            repliesCount: row['repliesCount'] as int,
+            likesCount: row['likesCount'] as int,
+            dislikesCount: row['dislikesCount'] as int));
   }
 
   @override
@@ -135,11 +145,16 @@ class _$ArticleDao extends ArticleDao {
     return _queryAdapter.query('SELECT * FROM ArticleEntity WHERE id = ?1',
         mapper: (Map<String, Object?> row) => ArticleEntity(
             id: row['id'] as int,
-            title: row['title'] as String,
-            description: row['description'] as String,
-            imageUrl: row['imageUrl'] as String,
-            articleUrl: row['articleUrl'] as String,
-            date: row['date'] as String),
+            userId: row['userId'] as int,
+            image: row['image'] as String?,
+            body: row['body'] as String,
+            createdAt: row['createdAt'] as String,
+            updatedAt: row['updatedAt'] as String,
+            isLiked: (row['isLiked'] as int) != 0,
+            isDisliked: (row['isDisliked'] as int) != 0,
+            repliesCount: row['repliesCount'] as int,
+            likesCount: row['likesCount'] as int,
+            dislikesCount: row['dislikesCount'] as int),
         arguments: [id]);
   }
 
