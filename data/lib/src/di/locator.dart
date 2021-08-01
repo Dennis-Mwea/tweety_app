@@ -1,3 +1,4 @@
+import 'package:data/data.dart';
 import 'package:data/src/common/constants.dart';
 import 'package:data/src/datasource/local/dao/article_dao.dart';
 import 'package:data/src/datasource/local/db/app_database.dart';
@@ -18,7 +19,7 @@ void setupLocator() {
   $initGetIt(locator);
 }
 
-void _init(GetIt locator) {
+void _init(GetIt locator) async {
   _registerNetworkModules(locator);
   _registerServices(locator);
   _registerDatabase(locator);
@@ -28,7 +29,8 @@ void _registerNetworkModules(GetIt locator) {
   final _dio = Dio();
   _dio.interceptors.add(PrettyDioLogger(
       requestHeader: true, requestBody: true, responseBody: true, responseHeader: false, error: true, compact: true, maxWidth: 90));
-  _dio.options.headers.addAll({'Accept': 'application/json'});
+  _dio.options.headers
+      .addAll({'Accept': 'application/json', 'Authorization': 'Bearer ${SharedObjects.prefs.getString(Constants.accessToken)}'});
   locator.registerSingleton<Dio>(_dio);
 }
 

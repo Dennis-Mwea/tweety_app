@@ -10,4 +10,7 @@ abstract class AuthenticationService {
 
   @POST('/login')
   Future<LoginResponse> loginWithEmailAndPassword(@Body() Map<String, String> data);
+
+  @GET('/user')
+  Future<LoginResponse> getUser();
 }

@@ -11,4 +11,4 @@ void setupLocator() {
   $initGetIt(locator);
 }
 
-void _init(GetIt locator) {}
+void _init(GetIt locator) async {}

@@ -25,6 +25,6 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i3.GetArticleByIdUseCase>(
       () => _i4.GetArticleByIdUseCaseImpl(get<_i5.ArticleRepository>()));
   gh.factory<_i6.LoginUseCase>(
-      () => _i7.LoginUSeCaseImpl(get<_i8.AuthenticationRepository>()));
+      () => _i7.LoginUseCaseImpl(get<_i8.AuthenticationRepository>()));
   return get;
 }

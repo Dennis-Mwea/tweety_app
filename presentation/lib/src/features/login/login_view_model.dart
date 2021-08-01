@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:core/core/core_view_model.dart';
 import 'package:core/service/toast_service.dart';
+import 'package:data/data.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
@@ -25,8 +28,10 @@ class LoginViewModel extends CoreViewModel {
     loading();
 
     final results = await _loginUseCase.loginWithEmailAndPassword(email, password);
-    results.when(success: (data) {
-      /// Save Token to shared prefs ;
+    results.when(success: (data) async {
+      await SharedObjects.prefs.setString(Constants.accessToken, data.token!);
+      await SharedObjects.prefs.setString(Constants.user, json.encode(data.toJson()));
+
       navigationService.push(ArticleListScreenRoute());
     }, error: (errorType, errorMessage) {
       errorType.maybeWhen(
@@ -42,8 +47,6 @@ class LoginViewModel extends CoreViewModel {
     });
 
     loaded(results.isSuccessful);
-
-    //
   }
 
   void onRegisterButtonPressed() {

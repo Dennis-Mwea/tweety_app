@@ -16,4 +16,9 @@ class AuthenticationRepositoryImpl extends BaseResponse implements Authenticatio
     return safeApiCall(_authenticationService.loginWithEmailAndPassword({'email': email, 'password': password}),
         mapper: (LoginResponse response) => response.user.toModel());
   }
+
+  @override
+  Future<Result<UserModel>> getUser() {
+    return safeApiCall(_authenticationService.getUser(), mapper: (LoginResponse response) => response.user.toModel());
+  }
 }

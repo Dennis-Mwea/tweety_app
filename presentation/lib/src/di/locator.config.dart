@@ -11,8 +11,9 @@ import 'package:injectable/injectable.dart' as _i2;
 
 import '../features/articles/details/article_details_view_model.dart' as _i3;
 import '../features/articles/list/article_list_view_model.dart' as _i5;
-import '../features/login/login_view_model.dart'
-    as _i7; // ignore_for_file: unnecessary_lambdas
+import '../features/login/login_view_model.dart' as _i7;
+import '../features/splash/splash_screen_view_model.dart'
+    as _i8; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -25,5 +26,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       get<_i4.GetAllArticlesUseCase>(), get<_i6.ToastService>()));
   gh.factory<_i7.LoginViewModel>(() =>
       _i7.LoginViewModel(get<_i4.LoginUseCase>(), get<_i6.ToastService>()));
+  gh.factory<_i8.SplashScreenViewModel>(
+      () => _i8.SplashScreenViewModel(get<_i4.LoginUseCase>()));
   return get;
 }

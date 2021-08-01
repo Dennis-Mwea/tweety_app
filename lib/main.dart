@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:data/data.dart';
 import 'package:flutter/material.dart';
 import 'package:presentation/presentation.dart';
 import 'package:tweety_app/config/AppTheme.dart';
@@ -8,6 +9,7 @@ Future<void> main() async {
 
   /// since main module is dependent on Core module and Feature module
   /// we need to init these dependent modules here
+  SharedObjects.prefs = await CachedSharedPreferences.getInstance();
   Core.init();
   Presentation.init();
 

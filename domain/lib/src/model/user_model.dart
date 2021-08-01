@@ -21,4 +21,7 @@ class UserModel {
 
   /// Empty user which represents an unauthenticated user.
   static const empty = UserModel(email: '', name: '', avatar: '', username: '', banner: '');
+
+  Map<String, dynamic> toJson() =>
+      {'email': email, 'name': name, 'username': username, 'avatar': avatar, 'banner': banner, 'description': description};
 }
