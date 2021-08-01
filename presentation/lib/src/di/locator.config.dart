@@ -23,6 +23,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i3.ArticleDetailsViewModel(get<_i4.GetArticleByIdUseCase>()));
   gh.factory<_i5.ArticleListViewModel>(() => _i5.ArticleListViewModel(
       get<_i4.GetAllArticlesUseCase>(), get<_i6.ToastService>()));
-  gh.factory<_i7.LoginViewModel>(() => _i7.LoginViewModel());
+  gh.factory<_i7.LoginViewModel>(() =>
+      _i7.LoginViewModel(get<_i4.LoginUseCase>(), get<_i6.ToastService>()));
   return get;
 }

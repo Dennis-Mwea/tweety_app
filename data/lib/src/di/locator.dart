@@ -2,10 +2,12 @@ import 'package:data/src/common/constants.dart';
 import 'package:data/src/datasource/local/dao/article_dao.dart';
 import 'package:data/src/datasource/local/db/app_database.dart';
 import 'package:data/src/datasource/remote/service/article_service.dart';
+import 'package:data/src/datasource/remote/service/authentication_service.dart';
 import 'package:data/src/di/locator.config.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 final locator = GetIt.instance..allowReassignment = true;
 
@@ -23,11 +25,16 @@ void _init(GetIt locator) {
 }
 
 void _registerNetworkModules(GetIt locator) {
-  locator.registerSingleton<Dio>(Dio());
+  final _dio = Dio();
+  _dio.interceptors.add(PrettyDioLogger(
+      requestHeader: true, requestBody: true, responseBody: true, responseHeader: false, error: true, compact: true, maxWidth: 90));
+  _dio.options.headers.addAll({'Accept': 'application/json'});
+  locator.registerSingleton<Dio>(_dio);
 }
 
 void _registerServices(GetIt locator) {
   locator.registerLazySingleton<ArticleService>(() => ArticleService(locator<Dio>(), baseUrl: Constants.BASE_URL));
+  locator.registerLazySingleton<AuthenticationService>(() => AuthenticationService(locator<Dio>(), baseUrl: Constants.BASE_URL));
 }
 
 void _registerDatabase(GetIt locator) async {

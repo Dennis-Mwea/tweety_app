@@ -1,6 +1,6 @@
+import 'package:domain/domain.dart';
 import 'package:domain/src/common/result.dart';
 import 'package:domain/src/model/article_model.dart';
-import 'package:domain/src/repository/article_repository.dart';
 import 'package:domain/src/usecase/article/article_use_case.dart';
 import 'package:injectable/injectable.dart';
 

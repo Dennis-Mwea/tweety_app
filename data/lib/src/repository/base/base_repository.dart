@@ -20,12 +20,12 @@ abstract class BaseResponse {
       } else {
         _logger.d('DB response is null');
 
-        return Error(ErrorType.GENERIC, 'DB response is null');
+        return Error(NetworkExceptions.unableToProcess(), 'DB response is null');
       }
     } catch (exception) {
       _logger.d("DB failure message -> $exception");
 
-      return Error(ErrorType.GENERIC, "Unknown DB error");
+      return Error(NetworkExceptions.unableToProcess(), "Unknown DB error");
     }
   }
 
@@ -33,30 +33,16 @@ abstract class BaseResponse {
       {required ResponseToModelMapper<Response, Model> mapper, SaveResult<Response>? saveResult}) async {
     try {
       var response = await call;
-      _logger.d('Api success message -> $response');
 
       await saveResult?.call(response);
 
       return Success(mapper.call(response));
     } catch (exception) {
-      _logger.e('Api error message -> $exception');
-      _logger.e(exception);
-
       if (exception is DioError) {
-        switch (exception.type) {
-          case DioErrorType.connectTimeout:
-          case DioErrorType.sendTimeout:
-          case DioErrorType.receiveTimeout:
-          case DioErrorType.cancel:
-            return Error(ErrorType.POOR_NETWORK, exception.message);
-          case DioErrorType.other:
-            return Error(ErrorType.NO_NETWORK, exception.message);
-          case DioErrorType.response:
-            return Error(ErrorType.GENERIC, exception.message);
-        }
+        return Error(NetworkExceptions.getDioException(exception)!, exception.message);
       }
 
-      return Error(ErrorType.GENERIC, "Unknown API error");
+      return Error(NetworkExceptions.unexpectedError(), "Unknown API error");
     }
   }
 }

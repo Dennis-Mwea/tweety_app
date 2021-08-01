@@ -15,7 +15,7 @@ class AuthenticationProvider extends BaseAuthenticationProvider {
   @override
   Future<ApiResult<Auth>> login(String email, String password) async {
     try {
-      // final response = await locator<NetworkClient>().client.post('login', data: {'email': email, 'password': password});
+      // final response = await locator<NetworkClient>().client.post('authentication', data: {'email': email, 'password': password});
       // final auth = Auth.fromJson(response['data']);
       //
       // await SharedObjects.prefs.setString(Constants.accessToken, auth.token);

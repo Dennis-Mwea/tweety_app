@@ -163,7 +163,7 @@ abstract class NetworkExceptions with _$NetworkExceptions {
     }, notAcceptable: () {
       errorMessage = "Not acceptable";
     }, unauthenticatedRequest: () {
-      errorMessage = 'UnAuthenticated. Please login.';
+      errorMessage = 'UnAuthenticated. Please authentication.';
     }, unProcessableEntity: (dynamic e) {
       errorMessage = 'UnProcessable entity. $e';
     });
