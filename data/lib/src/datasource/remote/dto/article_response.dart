@@ -1,4 +1,3 @@
-import 'package:domain/domain.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'article_response.g.dart';
@@ -24,7 +23,7 @@ class ArticleResponse {
   final int to;
   final int total;
   @JsonKey(name: 'data')
-  final List<Article> articles;
+  final List<ArticleModelResponse> articles;
 
   ArticleResponse(this.articles, this.currentPage, this.firstPageUrl, this.from, this.lastPage, this.lastPageUrl, this.nextPageUrl,
       this.path, this.perPage, this.previousPageUrl, this.to, this.total);
@@ -35,7 +34,7 @@ class ArticleResponse {
 }
 
 @JsonSerializable()
-class Article {
+class ArticleModelResponse {
   final int id;
   @JsonKey(name: 'user_id')
   final int userId;
@@ -56,12 +55,12 @@ class Article {
   @JsonKey(name: 'dislikes_count')
   final int dislikesCount;
 
-  Article(this.id, this.userId, this.image, this.body, this.createdAt, this.updatedAt, this.isLiked, this.isDisliked, this.repliesCount,
-      this.likesCount, this.dislikesCount);
+  ArticleModelResponse(this.id, this.userId, this.image, this.body, this.createdAt, this.updatedAt, this.isLiked, this.isDisliked,
+      this.repliesCount, this.likesCount, this.dislikesCount);
 
-  factory Article.fromJson(Map<String, dynamic> json) => _$ArticleFromJson(json);
+  factory ArticleModelResponse.fromJson(Map<String, dynamic> json) => _$ArticleModelResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ArticleToJson(this);
+  Map<String, dynamic> toJson() => _$ArticleModelResponseToJson(this);
 }
 
 @JsonSerializable()

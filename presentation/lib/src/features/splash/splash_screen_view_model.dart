@@ -19,6 +19,8 @@ class SplashScreenViewModel extends CoreViewModel {
     results.when(success: (data) async {
       await SharedObjects.prefs.setString(Constants.user, json.encode(data.toJson()));
 
+      print(data);
+
       navigationService.popAndPush(ArticleListScreenRoute());
     }, error: (NetworkExceptions errorType, message) {
       navigationService.pushAndRemoveUntil(LoginScreenRoute());

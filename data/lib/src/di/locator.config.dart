@@ -9,6 +9,7 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
 import '../datasource/local/dao/article_dao.dart' as _i6;
+import '../datasource/local/dao/tag_dao.dart' as _i9;
 import '../datasource/remote/service/article_service.dart' as _i5;
 import '../datasource/remote/service/authentication_service.dart' as _i8;
 import '../repository/article_repository.dart' as _i4;
@@ -22,7 +23,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   gh.factory<_i3.ArticleRepository>(() => _i4.ArticleRepositoryImpl(
       get<_i5.ArticleService>(), get<_i6.ArticleDao>()));
-  gh.factory<_i3.AuthenticationRepository>(
-      () => _i7.AuthenticationRepositoryImpl(get<_i8.AuthenticationService>()));
+  gh.factory<_i3.AuthenticationRepository>(() =>
+      _i7.AuthenticationRepositoryImpl(
+          get<_i8.AuthenticationService>(), get<_i9.TagDao>()));
   return get;
 }

@@ -1,7 +1,8 @@
+import 'package:data/src/datasource/local/db/app_database.dart';
 import 'package:data/src/datasource/remote/dto/login_response.dart';
 import 'package:domain/domain.dart';
 
-extension ArticleExtension on User {
+extension ArticleExtension on UserResponse {
   UserModel toModel() => UserModel(
         id: id,
         email: email,
@@ -12,4 +13,6 @@ extension ArticleExtension on User {
         token: token,
         description: description,
       );
+
+  Tag toEntity() => Tag(name: 'Tag', color: 0xFFffffff);
 }

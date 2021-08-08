@@ -1,31 +1,15 @@
-import 'package:floor/floor.dart';
+import 'package:moor_flutter/moor_flutter.dart';
 
-@entity
-class ArticleEntity {
-  @primaryKey
-  final int id;
-  final int userId;
-  final String? image;
-  final String body;
-  final String createdAt;
-  final String updatedAt;
-  final bool isLiked;
-  final bool isDisliked;
-  final int repliesCount;
-  final int likesCount;
-  final int dislikesCount;
-
-  ArticleEntity({
-    required this.id,
-    required this.userId,
-    this.image,
-    required this.body,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.isLiked,
-    required this.isDisliked,
-    required this.repliesCount,
-    required this.likesCount,
-    required this.dislikesCount,
-  });
+class Articles extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get userId => integer()();
+  TextColumn get body => text().withLength(min: 1, max: 256)();
+  TextColumn get image => text().withLength(min: 1, max: 256).nullable()();
+  TextColumn get createdAt => text().withLength(min: 1, max: 256)();
+  TextColumn get updatedAt => text().withLength(min: 1, max: 256)();
+  BoolColumn get isLiked => boolean().withDefault(Constant(false))();
+  BoolColumn get isDisliked => boolean().withDefault(Constant(false))();
+  IntColumn get repliesCount => integer()();
+  IntColumn get likesCount => integer()();
+  IntColumn get dislikesCount => integer()();
 }

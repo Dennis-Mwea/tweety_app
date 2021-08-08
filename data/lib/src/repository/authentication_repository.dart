@@ -1,3 +1,4 @@
+import 'package:data/src/datasource/local/dao/tag_dao.dart';
 import 'package:data/src/datasource/remote/dto/login_response.dart';
 import 'package:data/src/datasource/remote/service/authentication_service.dart';
 import 'package:data/src/mapper/user_mapper.dart';
@@ -8,8 +9,9 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: AuthenticationRepository)
 class AuthenticationRepositoryImpl extends BaseResponse implements AuthenticationRepository {
   final AuthenticationService _authenticationService;
+  final TagDao _tagDao;
 
-  AuthenticationRepositoryImpl(this._authenticationService);
+  AuthenticationRepositoryImpl(this._authenticationService, this._tagDao);
 
   @override
   Future<Result<UserModel>> loginWithEmailAndPassword(String email, String password) {

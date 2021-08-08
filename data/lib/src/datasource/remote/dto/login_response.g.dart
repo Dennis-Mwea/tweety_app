@@ -8,7 +8,7 @@ part of 'login_response.dart';
 
 LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) {
   return LoginResponse(
-    User.fromJson(json['data'] as Map<String, dynamic>),
+    UserResponse.fromJson(json['data'] as Map<String, dynamic>),
     json['success'] as bool,
     message: json['message'] as String?,
   );
@@ -21,8 +21,8 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
       'message': instance.message,
     };
 
-User _$UserFromJson(Map<String, dynamic> json) {
-  return User(
+UserResponse _$UserResponseFromJson(Map<String, dynamic> json) {
+  return UserResponse(
     json['id'] as int?,
     json['email'] as String,
     json['username'] as String,
@@ -34,7 +34,8 @@ User _$UserFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'username': instance.username,

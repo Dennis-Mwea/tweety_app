@@ -1,8 +1,8 @@
-import 'package:data/src/datasource/local/entity/article_entity.dart';
+import 'package:data/src/datasource/local/db/app_database.dart';
 import 'package:data/src/datasource/remote/dto/article_response.dart';
 import 'package:domain/domain.dart';
 
-extension ArticleExtension on Article {
+extension ArticleExtension on ArticleModelResponse {
   ArticleModel toModel() => ArticleModel(
       id: id,
       userId: userId,
@@ -16,7 +16,7 @@ extension ArticleExtension on Article {
       likesCount: likesCount,
       dislikesCount: dislikesCount);
 
-  ArticleEntity toEntity() => ArticleEntity(
+  Article toEntity() => Article(
       id: id,
       userId: userId,
       image: image,
@@ -30,7 +30,7 @@ extension ArticleExtension on Article {
       dislikesCount: dislikesCount);
 }
 
-extension ArticleEntityExtension on ArticleEntity {
+extension ArticleEntityExtension on Article {
   ArticleModel toModel() => ArticleModel(
       id: id,
       userId: userId,

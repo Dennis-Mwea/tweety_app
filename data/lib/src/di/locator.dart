@@ -1,6 +1,7 @@
 import 'package:data/data.dart';
 import 'package:data/src/common/constants.dart';
 import 'package:data/src/datasource/local/dao/article_dao.dart';
+import 'package:data/src/datasource/local/dao/tag_dao.dart';
 import 'package:data/src/datasource/local/db/app_database.dart';
 import 'package:data/src/datasource/remote/service/article_service.dart';
 import 'package:data/src/datasource/remote/service/authentication_service.dart';
@@ -20,9 +21,9 @@ void setupLocator() {
 }
 
 void _init(GetIt locator) async {
+  _registerDatabase(locator);
   _registerNetworkModules(locator);
   _registerServices(locator);
-  _registerDatabase(locator);
 }
 
 void _registerNetworkModules(GetIt locator) {
@@ -40,8 +41,7 @@ void _registerServices(GetIt locator) {
 }
 
 void _registerDatabase(GetIt locator) async {
-  final database = await $FloorAppDatabase.databaseBuilder('article_database.db').build();
-
-  locator.registerLazySingleton<AppDatabase>(() => database);
+  locator.registerLazySingleton<AppDatabase>(() => AppDatabase(openConnection()));
+  locator.registerLazySingleton<TagDao>(() => locator.get<AppDatabase>().tagDao);
   locator.registerLazySingleton<ArticleDao>(() => locator.get<AppDatabase>().articleDao);
 }

@@ -9,7 +9,7 @@ part of 'article_response.dart';
 ArticleResponse _$ArticleResponseFromJson(Map<String, dynamic> json) {
   return ArticleResponse(
     (json['data'] as List<dynamic>)
-        .map((e) => Article.fromJson(e as Map<String, dynamic>))
+        .map((e) => ArticleModelResponse.fromJson(e as Map<String, dynamic>))
         .toList(),
     json['current_page'] as int,
     json['first_page_url'] as String?,
@@ -41,8 +41,8 @@ Map<String, dynamic> _$ArticleResponseToJson(ArticleResponse instance) =>
       'data': instance.articles,
     };
 
-Article _$ArticleFromJson(Map<String, dynamic> json) {
-  return Article(
+ArticleModelResponse _$ArticleModelResponseFromJson(Map<String, dynamic> json) {
+  return ArticleModelResponse(
     json['id'] as int,
     json['user_id'] as int,
     json['image'] as String?,
@@ -57,7 +57,9 @@ Article _$ArticleFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$ArticleToJson(Article instance) => <String, dynamic>{
+Map<String, dynamic> _$ArticleModelResponseToJson(
+        ArticleModelResponse instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'user_id': instance.userId,
       'image': instance.image,
