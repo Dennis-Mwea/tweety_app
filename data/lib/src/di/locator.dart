@@ -1,7 +1,7 @@
 import 'package:data/data.dart';
 import 'package:data/src/common/constants.dart';
 import 'package:data/src/datasource/local/dao/article_dao.dart';
-import 'package:data/src/datasource/local/dao/tag_dao.dart';
+import 'package:data/src/datasource/local/dao/user_dao.dart';
 import 'package:data/src/datasource/local/db/app_database.dart';
 import 'package:data/src/datasource/remote/service/article_service.dart';
 import 'package:data/src/datasource/remote/service/authentication_service.dart';

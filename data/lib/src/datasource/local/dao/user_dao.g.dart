@@ -1,11 +1,11 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tag_dao.dart';
+part of 'user_dao.dart';
 
 // **************************************************************************
 // DaoGenerator
 // **************************************************************************
 
 mixin _$TagDaoMixin on DatabaseAccessor<AppDatabase> {
-  $TagsTable get tags => attachedDatabase.tags;
+  $UsersTable get users => attachedDatabase.users;
 }

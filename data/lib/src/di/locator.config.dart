@@ -9,7 +9,7 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
 import '../datasource/local/dao/article_dao.dart' as _i6;
-import '../datasource/local/dao/tag_dao.dart' as _i9;
+import '../datasource/local/dao/user_dao.dart' as _i9;
 import '../datasource/remote/service/article_service.dart' as _i5;
 import '../datasource/remote/service/authentication_service.dart' as _i8;
 import '../repository/article_repository.dart' as _i4;

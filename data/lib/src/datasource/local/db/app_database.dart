@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:data/src/datasource/local/dao/article_dao.dart';
-import 'package:data/src/datasource/local/dao/tag_dao.dart';
+import 'package:data/src/datasource/local/dao/tweet_dao.dart';
+import 'package:data/src/datasource/local/dao/user_dao.dart';
 import 'package:data/src/datasource/local/entity/article_entity.dart';
-import 'package:data/src/datasource/local/entity/tags_entity.dart';
+import 'package:data/src/datasource/local/entity/tweet_entity.dart';
+import 'package:data/src/datasource/local/entity/user_entity.dart';
 import 'package:moor/ffi.dart';
 import 'package:moor_flutter/moor_flutter.dart';
 import 'package:path/path.dart' as p;
@@ -20,7 +22,7 @@ LazyDatabase openConnection() {
   });
 }
 
-@UseMoor(tables: [Tags, Articles], daos: [TagDao, ArticleDao])
+@UseMoor(tables: [Users, Tweets, Articles], daos: [TagDao, TweetDao, ArticleDao])
 class AppDatabase extends _$AppDatabase {
   AppDatabase(QueryExecutor e) : super(e);
 

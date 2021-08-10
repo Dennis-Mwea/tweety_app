@@ -4,15 +4,7 @@ import 'package:domain/domain.dart';
 
 extension ArticleExtension on UserResponse {
   UserModel toModel() => UserModel(
-        id: id,
-        email: email,
-        username: username,
-        name: name,
-        avatar: avatar,
-        banner: banner,
-        token: token,
-        description: description,
-      );
+      id: id, email: email, username: username, name: name, avatar: avatar, banner: banner, token: token, description: description);
 
-  Tag toEntity() => Tag(name: 'Tag', color: 0xFFffffff);
+  User toEntity() => User(name: name, id: id!, username: username, email: email, isFollowed: false);
 }
