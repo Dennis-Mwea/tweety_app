@@ -1,9 +1,7 @@
 import 'dart:io';
 
-import 'package:data/src/datasource/local/dao/article_dao.dart';
 import 'package:data/src/datasource/local/dao/tweet_dao.dart';
 import 'package:data/src/datasource/local/dao/user_dao.dart';
-import 'package:data/src/datasource/local/entity/article_entity.dart';
 import 'package:data/src/datasource/local/entity/tweet_entity.dart';
 import 'package:data/src/datasource/local/entity/user_entity.dart';
 import 'package:moor/ffi.dart';
@@ -16,13 +14,17 @@ part 'app_database.g.dart';
 LazyDatabase openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();
+    if (!await dbFolder.exists()) {
+      await dbFolder.create(recursive: true);
+    }
+
     final dbFile = File(p.join(dbFolder.path, 'db.sqlite'));
 
     return VmDatabase(dbFile);
   });
 }
 
-@UseMoor(tables: [Users, Tweets, Articles], daos: [TagDao, TweetDao, ArticleDao])
+@UseMoor(tables: [Users, Tweets], daos: [TweetDao, UserDao])
 class AppDatabase extends _$AppDatabase {
   AppDatabase(QueryExecutor e) : super(e);
 

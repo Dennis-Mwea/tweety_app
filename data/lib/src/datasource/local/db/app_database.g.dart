@@ -595,144 +595,6 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
 
 class Tweet extends DataClass implements Insertable<Tweet> {
   final int id;
-  Tweet({required this.id});
-  factory Tweet.fromData(Map<String, dynamic> data, GeneratedDatabase db,
-      {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return Tweet(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-    );
-  }
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    return map;
-  }
-
-  TweetsCompanion toCompanion(bool nullToAbsent) {
-    return TweetsCompanion(
-      id: Value(id),
-    );
-  }
-
-  factory Tweet.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return Tweet(
-      id: serializer.fromJson<int>(json['id']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-    };
-  }
-
-  Tweet copyWith({int? id}) => Tweet(
-        id: id ?? this.id,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('Tweet(')
-          ..write('id: $id')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => $mrjf(id.hashCode);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) || (other is Tweet && other.id == this.id);
-}
-
-class TweetsCompanion extends UpdateCompanion<Tweet> {
-  final Value<int> id;
-  const TweetsCompanion({
-    this.id = const Value.absent(),
-  });
-  TweetsCompanion.insert({
-    this.id = const Value.absent(),
-  });
-  static Insertable<Tweet> custom({
-    Expression<int>? id,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-    });
-  }
-
-  TweetsCompanion copyWith({Value<int>? id}) {
-    return TweetsCompanion(
-      id: id ?? this.id,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('TweetsCompanion(')
-          ..write('id: $id')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $TweetsTable extends Tweets with TableInfo<$TweetsTable, Tweet> {
-  final GeneratedDatabase _db;
-  final String? _alias;
-  $TweetsTable(this._db, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
-      'id', aliasedName, false,
-      typeName: 'INTEGER',
-      requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  @override
-  List<GeneratedColumn> get $columns => [id];
-  @override
-  String get aliasedName => _alias ?? 'tweets';
-  @override
-  String get actualTableName => 'tweets';
-  @override
-  VerificationContext validateIntegrity(Insertable<Tweet> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  Tweet map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Tweet.fromData(data, _db,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
-  }
-
-  @override
-  $TweetsTable createAlias(String alias) {
-    return $TweetsTable(_db, alias);
-  }
-}
-
-class Article extends DataClass implements Insertable<Article> {
-  final int id;
   final int userId;
   final String body;
   final String? image;
@@ -743,7 +605,7 @@ class Article extends DataClass implements Insertable<Article> {
   final int repliesCount;
   final int likesCount;
   final int dislikesCount;
-  Article(
+  Tweet(
       {required this.id,
       required this.userId,
       required this.body,
@@ -755,10 +617,10 @@ class Article extends DataClass implements Insertable<Article> {
       required this.repliesCount,
       required this.likesCount,
       required this.dislikesCount});
-  factory Article.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+  factory Tweet.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    return Article(
+    return Tweet(
       id: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       userId: const IntType()
@@ -802,8 +664,8 @@ class Article extends DataClass implements Insertable<Article> {
     return map;
   }
 
-  ArticlesCompanion toCompanion(bool nullToAbsent) {
-    return ArticlesCompanion(
+  TweetsCompanion toCompanion(bool nullToAbsent) {
+    return TweetsCompanion(
       id: Value(id),
       userId: Value(userId),
       body: Value(body),
@@ -819,10 +681,10 @@ class Article extends DataClass implements Insertable<Article> {
     );
   }
 
-  factory Article.fromJson(Map<String, dynamic> json,
+  factory Tweet.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
-    return Article(
+    return Tweet(
       id: serializer.fromJson<int>(json['id']),
       userId: serializer.fromJson<int>(json['userId']),
       body: serializer.fromJson<String>(json['body']),
@@ -854,7 +716,7 @@ class Article extends DataClass implements Insertable<Article> {
     };
   }
 
-  Article copyWith(
+  Tweet copyWith(
           {int? id,
           int? userId,
           String? body,
@@ -866,7 +728,7 @@ class Article extends DataClass implements Insertable<Article> {
           int? repliesCount,
           int? likesCount,
           int? dislikesCount}) =>
-      Article(
+      Tweet(
         id: id ?? this.id,
         userId: userId ?? this.userId,
         body: body ?? this.body,
@@ -881,7 +743,7 @@ class Article extends DataClass implements Insertable<Article> {
       );
   @override
   String toString() {
-    return (StringBuffer('Article(')
+    return (StringBuffer('Tweet(')
           ..write('id: $id, ')
           ..write('userId: $userId, ')
           ..write('body: $body, ')
@@ -921,7 +783,7 @@ class Article extends DataClass implements Insertable<Article> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is Article &&
+      (other is Tweet &&
           other.id == this.id &&
           other.userId == this.userId &&
           other.body == this.body &&
@@ -935,7 +797,7 @@ class Article extends DataClass implements Insertable<Article> {
           other.dislikesCount == this.dislikesCount);
 }
 
-class ArticlesCompanion extends UpdateCompanion<Article> {
+class TweetsCompanion extends UpdateCompanion<Tweet> {
   final Value<int> id;
   final Value<int> userId;
   final Value<String> body;
@@ -947,7 +809,7 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
   final Value<int> repliesCount;
   final Value<int> likesCount;
   final Value<int> dislikesCount;
-  const ArticlesCompanion({
+  const TweetsCompanion({
     this.id = const Value.absent(),
     this.userId = const Value.absent(),
     this.body = const Value.absent(),
@@ -960,7 +822,7 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
     this.likesCount = const Value.absent(),
     this.dislikesCount = const Value.absent(),
   });
-  ArticlesCompanion.insert({
+  TweetsCompanion.insert({
     this.id = const Value.absent(),
     required int userId,
     required String body,
@@ -979,7 +841,7 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
         repliesCount = Value(repliesCount),
         likesCount = Value(likesCount),
         dislikesCount = Value(dislikesCount);
-  static Insertable<Article> custom({
+  static Insertable<Tweet> custom({
     Expression<int>? id,
     Expression<int>? userId,
     Expression<String>? body,
@@ -1007,7 +869,7 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
     });
   }
 
-  ArticlesCompanion copyWith(
+  TweetsCompanion copyWith(
       {Value<int>? id,
       Value<int>? userId,
       Value<String>? body,
@@ -1019,7 +881,7 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
       Value<int>? repliesCount,
       Value<int>? likesCount,
       Value<int>? dislikesCount}) {
-    return ArticlesCompanion(
+    return TweetsCompanion(
       id: id ?? this.id,
       userId: userId ?? this.userId,
       body: body ?? this.body,
@@ -1075,7 +937,7 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
 
   @override
   String toString() {
-    return (StringBuffer('ArticlesCompanion(')
+    return (StringBuffer('TweetsCompanion(')
           ..write('id: $id, ')
           ..write('userId: $userId, ')
           ..write('body: $body, ')
@@ -1092,10 +954,10 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
   }
 }
 
-class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
+class $TweetsTable extends Tweets with TableInfo<$TweetsTable, Tweet> {
   final GeneratedDatabase _db;
   final String? _alias;
-  $ArticlesTable(this._db, [this._alias]);
+  $TweetsTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
       'id', aliasedName, false,
@@ -1177,11 +1039,11 @@ class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
         dislikesCount
       ];
   @override
-  String get aliasedName => _alias ?? 'articles';
+  String get aliasedName => _alias ?? 'tweets';
   @override
-  String get actualTableName => 'articles';
+  String get actualTableName => 'tweets';
   @override
-  VerificationContext validateIntegrity(Insertable<Article> instance,
+  VerificationContext validateIntegrity(Insertable<Tweet> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -1256,14 +1118,14 @@ class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  Article map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Article.fromData(data, _db,
+  Tweet map(Map<String, dynamic> data, {String? tablePrefix}) {
+    return Tweet.fromData(data, _db,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
-  $ArticlesTable createAlias(String alias) {
-    return $ArticlesTable(_db, alias);
+  $TweetsTable createAlias(String alias) {
+    return $TweetsTable(_db, alias);
   }
 }
 
@@ -1271,12 +1133,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   late final $UsersTable users = $UsersTable(this);
   late final $TweetsTable tweets = $TweetsTable(this);
-  late final $ArticlesTable articles = $ArticlesTable(this);
-  late final TagDao tagDao = TagDao(this as AppDatabase);
   late final TweetDao tweetDao = TweetDao(this as AppDatabase);
-  late final ArticleDao articleDao = ArticleDao(this as AppDatabase);
+  late final UserDao userDao = UserDao(this as AppDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [users, tweets, articles];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [users, tweets];
 }
