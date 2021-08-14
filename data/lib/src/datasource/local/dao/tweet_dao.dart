@@ -12,9 +12,9 @@ class TweetDao extends DatabaseAccessor<AppDatabase> with _$TweetDaoMixin {
 
   Future insertTweet(Insertable<Tweet> article) => into(tweets).insert(article);
 
-  Future insertTweets(List<Insertable<Tweet>> items) {
-    return transaction(() async {
-      for (Insertable<Tweet> item in items) await into(tweets).insert(item);
+  Future<void> insertTweets(List<Insertable<Tweet>> items) async {
+    await batch((batch) {
+      batch.insertAllOnConflictUpdate(tweets, items);
     });
   }
 
