@@ -1,5 +1,6 @@
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
+import 'package:presentation/src/utils/helpers.dart';
 import 'package:presentation/src/widgets/buttons/like_dislike_buttons.dart';
 
 class TweetCard extends StatelessWidget {
@@ -23,10 +24,11 @@ class TweetCard extends StatelessWidget {
           ListTile(
             contentPadding: EdgeInsets.all(8.0),
             leading: InkWell(
+              // TODO: redirect to user profile on image tap
               onTap: () => Navigator.of(context).pushNamed('/profile', arguments: 'tweet.user.username'),
               child: CircleAvatar(
                 radius: 25.0,
-                backgroundImage: NetworkImage('https://source.unsplash.com/daily?code'),
+                backgroundImage: tweet.user?.avatar != null ? NetworkImage(tweet.user!.avatar) : null,
                 backgroundColor: Theme.of(context).cardColor,
               ),
             ),
@@ -35,28 +37,26 @@ class TweetCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 InkWell(
-                  // onTap: () => Navigator.of(context)
-                  //     .pushNamed('/profile', arguments: tweet.user.username),
+                  // TODO: Redirect to user profile on username touch
+                  onTap: () => Navigator.of(context).pushNamed('/profile', arguments: tweet.user!.username),
                   child: Container(
                     width: size.width / 3,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('tweet.us', style: Theme.of(context).textTheme.caption, overflow: TextOverflow.ellipsis),
-                        Text("@tweet.un", style: Theme.of(context).textTheme.bodyText2),
+                        Text(tweet.user!.name, style: Theme.of(context).textTheme.caption, overflow: TextOverflow.ellipsis),
+                        Text("@${tweet.user?.username ?? ''}", style: Theme.of(context).textTheme.bodyText2),
                       ],
                     ),
                   ),
                 ),
-                Text(
-                  // timeago.format(tweet.createdAt, locale: 'en_short'),
-                  '5 min ago',
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
+                // TODO: format time here
+                Text(tweet.createdAt, style: Theme.of(context).textTheme.bodyText2),
                 IconButton(
                   icon: Icon(Icons.keyboard_arrow_down),
                   color: Theme.of(context).textSelectionTheme.cursorColor,
                   onPressed: () {
+                    // TODO: open tweet modal bottom sheet
                     // TweetActionsModal().mainBottomSheet(context, tweet)
                   },
                 ),
@@ -68,9 +68,11 @@ class TweetCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   RichText(
-                    text: TextSpan(style: Theme.of(context).textTheme.bodyText1, children: [TextSpan(text: tweet.body)]
-                        // parseBody(tweet.body).map((body) => bodyTextSpan(body, context, Theme.of(context).textTheme.bodyText1)).toList(),
-                        ),
+                    text: TextSpan(
+                      style: Theme.of(context).textTheme.bodyText1,
+                      children:
+                          parseBody(tweet.body).map((body) => bodyTextSpan(body, context, Theme.of(context).textTheme.bodyText1)).toList(),
+                    ),
                   ),
                   tweet.image != null
                       ? Padding(
