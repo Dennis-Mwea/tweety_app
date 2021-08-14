@@ -1,5 +1,6 @@
 import 'package:data/src/datasource/local/db/app_database.dart';
 import 'package:data/src/datasource/remote/dto/tweet_response.dart';
+import 'package:data/src/mapper/user_mapper.dart';
 import 'package:domain/domain.dart';
 
 extension TweetExtension on TweetResponse {
@@ -14,7 +15,8 @@ extension TweetExtension on TweetResponse {
       isDisliked: isDisliked,
       repliesCount: repliesCount,
       likesCount: likesCount,
-      dislikesCount: dislikesCount);
+      dislikesCount: dislikesCount,
+      user: user.toModel());
 
   Tweet toEntity() => Tweet(
       id: id,

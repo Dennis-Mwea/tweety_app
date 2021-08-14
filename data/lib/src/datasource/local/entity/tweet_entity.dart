@@ -2,7 +2,7 @@ import 'package:moor_flutter/moor_flutter.dart';
 
 class Tweets extends Table {
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get userId => integer()();
+  IntColumn get userId => integer().customConstraint('REFERENCES users(id)')();
   TextColumn get body => text().withLength(min: 1, max: 256)();
   TextColumn get image => text().withLength(min: 1, max: 256).nullable()();
   TextColumn get createdAt => text().withLength(min: 1, max: 256)();

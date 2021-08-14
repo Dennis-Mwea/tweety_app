@@ -10,5 +10,11 @@ class UserDao extends DatabaseAccessor<AppDatabase> with _$UserDaoMixin {
 
   UserDao(this.appDb) : super(appDb);
 
+  Future<void> insertTweetUsers(List<Insertable<User>> items) async {
+    await batch((batch) {
+      batch.insertAllOnConflictUpdate(users, items);
+    });
+  }
+
   Future insertTag(Insertable<User> tag) => into(users).insert(tag);
 }

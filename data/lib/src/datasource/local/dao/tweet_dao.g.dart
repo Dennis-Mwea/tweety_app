@@ -8,4 +8,5 @@ part of 'tweet_dao.dart';
 
 mixin _$TweetDaoMixin on DatabaseAccessor<AppDatabase> {
   $TweetsTable get tweets => attachedDatabase.tweets;
+  $UsersTable get users => attachedDatabase.users;
 }

@@ -967,7 +967,9 @@ class $TweetsTable extends Tweets with TableInfo<$TweetsTable, Tweet> {
   final VerificationMeta _userIdMeta = const VerificationMeta('userId');
   late final GeneratedColumn<int?> userId = GeneratedColumn<int?>(
       'user_id', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      typeName: 'INTEGER',
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES users(id)');
   final VerificationMeta _bodyMeta = const VerificationMeta('body');
   late final GeneratedColumn<String?> body = GeneratedColumn<String?>(
       'body', aliasedName, false,

@@ -1,10 +1,11 @@
 import 'package:data/src/datasource/local/db/app_database.dart';
 import 'package:data/src/datasource/local/entity/tweet_entity.dart';
+import 'package:data/src/datasource/local/entity/user_entity.dart';
 import 'package:moor/moor.dart';
 
 part 'tweet_dao.g.dart';
 
-@UseDao(tables: [Tweets])
+@UseDao(tables: [Tweets, Users])
 class TweetDao extends DatabaseAccessor<AppDatabase> with _$TweetDaoMixin {
   final AppDatabase appDatabase;
 
