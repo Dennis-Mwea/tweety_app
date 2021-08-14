@@ -1,13 +1,15 @@
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
+import 'package:presentation/src/features/tweets/list/article_list_view_model.dart';
 import 'package:presentation/src/utils/helpers.dart';
 import 'package:presentation/src/widgets/buttons/like_dislike_buttons.dart';
 
 class TweetCard extends StatelessWidget {
+  final ArticleListViewModel viewModel;
   final TweetModel tweet;
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey;
 
-  const TweetCard({Key? key, required this.tweet, required this.scaffoldMessengerKey}) : super(key: key);
+  const TweetCard(this.viewModel, {Key? key, required this.tweet, required this.scaffoldMessengerKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +26,7 @@ class TweetCard extends StatelessWidget {
           ListTile(
             contentPadding: EdgeInsets.all(8.0),
             leading: InkWell(
-              // TODO: redirect to user profile on image tap
-              onTap: () => Navigator.of(context).pushNamed('/profile', arguments: 'tweet.user.username'),
+              onTap: () => viewModel.onUserClicked(tweet.user!.username),
               child: CircleAvatar(
                 radius: 25.0,
                 backgroundImage: tweet.user?.avatar != null ? NetworkImage(tweet.user!.avatar) : null,

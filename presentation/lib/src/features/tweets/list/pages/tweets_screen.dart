@@ -56,7 +56,7 @@ class TweetsScreen extends StatelessWidget {
             (context, index) => Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
               child: GestureDetector(
-                child: TweetCard(tweet: viewModel.articles[index], scaffoldMessengerKey: scaffoldMessengerKey),
+                child: TweetCard(viewModel, tweet: viewModel.articles[index], scaffoldMessengerKey: scaffoldMessengerKey),
               ),
             ),
             childCount: viewModel.articles.length,

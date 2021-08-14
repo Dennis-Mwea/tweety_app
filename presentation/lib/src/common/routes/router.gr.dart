@@ -8,8 +8,9 @@ import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i2;
 
 import '../../features/login/login_screen.dart' as _i4;
+import '../../features/profile/view/profile_view_scree.dart' as _i7;
 import '../../features/splash/splash_screen.dart' as _i3;
-import '../../features/tweets/details/article_details_screen.dart' as _i6;
+import '../../features/tweets/details/tweet_details_screen.dart' as _i6;
 import '../../features/tweets/list/article_list_screen.dart' as _i5;
 
 class FeatureRouter extends _i1.RootStackRouter {
@@ -33,11 +34,16 @@ class FeatureRouter extends _i1.RootStackRouter {
         builder: (_) {
           return const _i5.ArticleListScreen();
         }),
-    ArticleDetailsScreenRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
+    TweetDetailsScreenRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
         routeData: routeData,
         builder: (data) {
-          final args = data.argsAs<ArticleDetailsScreenRouteArgs>();
-          return _i6.ArticleDetailsScreen(id: args.id);
+          final args = data.argsAs<TweetDetailsScreenRouteArgs>();
+          return _i6.TweetDetailsScreen(id: args.id);
+        }),
+    ProfileViewScreenRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
+        routeData: routeData,
+        builder: (_) {
+          return _i7.ProfileViewScreen();
         })
   };
 
@@ -47,8 +53,10 @@ class FeatureRouter extends _i1.RootStackRouter {
         _i1.RouteConfig(LoginScreenRoute.name, path: '/login-screen'),
         _i1.RouteConfig(ArticleListScreenRoute.name,
             path: '/article-list-screen'),
-        _i1.RouteConfig(ArticleDetailsScreenRoute.name,
-            path: '/article-details-screen')
+        _i1.RouteConfig(TweetDetailsScreenRoute.name,
+            path: '/tweet-details-screen'),
+        _i1.RouteConfig(ProfileViewScreenRoute.name,
+            path: '/profile-view-screen')
       ];
 }
 
@@ -70,18 +78,24 @@ class ArticleListScreenRoute extends _i1.PageRouteInfo {
   static const String name = 'ArticleListScreenRoute';
 }
 
-class ArticleDetailsScreenRoute
-    extends _i1.PageRouteInfo<ArticleDetailsScreenRouteArgs> {
-  ArticleDetailsScreenRoute({required int id})
+class TweetDetailsScreenRoute
+    extends _i1.PageRouteInfo<TweetDetailsScreenRouteArgs> {
+  TweetDetailsScreenRoute({required int id})
       : super(name,
-            path: '/article-details-screen',
-            args: ArticleDetailsScreenRouteArgs(id: id));
+            path: '/tweet-details-screen',
+            args: TweetDetailsScreenRouteArgs(id: id));
 
-  static const String name = 'ArticleDetailsScreenRoute';
+  static const String name = 'TweetDetailsScreenRoute';
 }
 
-class ArticleDetailsScreenRouteArgs {
-  const ArticleDetailsScreenRouteArgs({required this.id});
+class TweetDetailsScreenRouteArgs {
+  const TweetDetailsScreenRouteArgs({required this.id});
 
   final int id;
+}
+
+class ProfileViewScreenRoute extends _i1.PageRouteInfo {
+  const ProfileViewScreenRoute() : super(name, path: '/profile-view-screen');
+
+  static const String name = 'ProfileViewScreenRoute';
 }

@@ -36,7 +36,7 @@ class ArticleListViewModel extends CoreViewModel {
   }
 
   void onArticleItemClicked(int id) {
-    navigationService.push(ArticleDetailsScreenRoute(id: id));
+    navigationService.push(TweetDetailsScreenRoute(id: id));
   }
 
   void onBottomNavItemClicked(int index, AnimationController animationController, PageController pageController) {
@@ -45,5 +45,9 @@ class ArticleListViewModel extends CoreViewModel {
     _currentPage = index;
     pageController.jumpToPage(index);
     notifyListeners();
+  }
+
+  void onUserClicked(String username) {
+    navigationService.push(ProfileViewScreenRoute());
   }
 }

@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:presentation/src/common/constants/assets.dart';
 import 'package:presentation/src/common/constants/strings.dart';
 import 'package:presentation/src/di/locator.dart';
-import 'package:presentation/src/features/tweets/details/article_details_view_model.dart';
+import 'package:presentation/src/features/tweets/details/tweet_details_view_model.dart';
 
-class ArticleDetailsScreen extends CoreScreen<ArticleDetailsViewModel> {
+class TweetDetailsScreen extends CoreScreen<TweetDetailsViewModel> {
   final int id;
 
-  ArticleDetailsScreen({required this.id});
+  TweetDetailsScreen({required this.id});
 
   @override
-  Widget builder(BuildContext context, ArticleDetailsViewModel viewModel, Widget? child) {
+  Widget builder(BuildContext context, TweetDetailsViewModel viewModel, Widget? child) {
     return Scaffold(
       appBar: AppBar(title: Text(Strings.articleDetail)),
       body: _buildBody(context, viewModel),
@@ -19,9 +19,9 @@ class ArticleDetailsScreen extends CoreScreen<ArticleDetailsViewModel> {
   }
 
   @override
-  ArticleDetailsViewModel viewModelBuilder(BuildContext context) => locator<ArticleDetailsViewModel>()..getArticleDetails(id);
+  TweetDetailsViewModel viewModelBuilder(BuildContext context) => locator<TweetDetailsViewModel>()..getArticleDetails(id);
 
-  Widget _buildBody(BuildContext context, ArticleDetailsViewModel viewModel) {
+  Widget _buildBody(BuildContext context, TweetDetailsViewModel viewModel) {
     if (viewModel.isBusy) {
       return Center(child: CircularProgressIndicator());
     } else if (viewModel.hasError) {
