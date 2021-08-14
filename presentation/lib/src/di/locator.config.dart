@@ -9,14 +9,14 @@ import 'package:domain/domain.dart' as _i4;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../features/articles/details/article_details_view_model.dart' as _i3;
-import '../features/articles/list/article_list_view_model.dart' as _i5;
 import '../features/explore/explore_view_model.dart' as _i7;
 import '../features/login/login_view_model.dart' as _i8;
 import '../features/messages/messages_view_model.dart' as _i9;
 import '../features/notifications/notifications_view_model.dart' as _i10;
-import '../features/splash/splash_screen_view_model.dart'
-    as _i11; // ignore_for_file: unnecessary_lambdas
+import '../features/splash/splash_screen_view_model.dart' as _i11;
+import '../features/tweets/details/article_details_view_model.dart' as _i3;
+import '../features/tweets/list/article_list_view_model.dart'
+    as _i5; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]

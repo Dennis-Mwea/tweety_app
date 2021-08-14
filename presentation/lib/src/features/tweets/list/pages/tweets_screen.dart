@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:presentation/src/features/articles/list/article_list_view_model.dart';
+import 'package:presentation/src/features/tweets/list/article_list_view_model.dart';
 import 'package:presentation/src/widgets/buttons/avatar_button.dart';
 import 'package:presentation/src/widgets/cards/tweet_card.dart';
 import 'package:presentation/src/widgets/loading_indicator.dart';

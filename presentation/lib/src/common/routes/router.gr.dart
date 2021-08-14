@@ -7,10 +7,10 @@
 import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i2;
 
-import '../../features/articles/details/article_details_screen.dart' as _i6;
-import '../../features/articles/list/article_list_screen.dart' as _i5;
 import '../../features/login/login_screen.dart' as _i4;
 import '../../features/splash/splash_screen.dart' as _i3;
+import '../../features/tweets/details/article_details_screen.dart' as _i6;
+import '../../features/tweets/list/article_list_screen.dart' as _i5;
 
 class FeatureRouter extends _i1.RootStackRouter {
   FeatureRouter([_i2.GlobalKey<_i2.NavigatorState>? navigatorKey])

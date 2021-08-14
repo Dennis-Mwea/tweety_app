@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:presentation/src/common/constants/assets.dart';
 import 'package:presentation/src/common/constants/strings.dart';
 import 'package:presentation/src/di/locator.dart';
-import 'package:presentation/src/features/articles/details/article_details_view_model.dart';
+import 'package:presentation/src/features/tweets/details/article_details_view_model.dart';
 
 class ArticleDetailsScreen extends CoreScreen<ArticleDetailsViewModel> {
   final int id;
