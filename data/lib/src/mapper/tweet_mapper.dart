@@ -1,9 +1,9 @@
 import 'package:data/src/datasource/local/db/app_database.dart';
-import 'package:data/src/datasource/remote/dto/article_response.dart';
+import 'package:data/src/datasource/remote/dto/tweet_response.dart';
 import 'package:domain/domain.dart';
 
-extension ArticleExtension on ArticleModelResponse {
-  ArticleModel toModel() => ArticleModel(
+extension TweetExtension on TweetResponse {
+  TweetModel toModel() => TweetModel(
       id: id,
       userId: userId,
       image: image,
@@ -16,7 +16,7 @@ extension ArticleExtension on ArticleModelResponse {
       likesCount: likesCount,
       dislikesCount: dislikesCount);
 
-  Article toEntity() => Article(
+  Tweet toEntity() => Tweet(
       id: id,
       userId: userId,
       image: image,
@@ -30,8 +30,8 @@ extension ArticleExtension on ArticleModelResponse {
       dislikesCount: dislikesCount);
 }
 
-extension ArticleEntityExtension on Article {
-  ArticleModel toModel() => ArticleModel(
+extension TweetEntityExtension on Tweet {
+  TweetModel toModel() => TweetModel(
       id: id,
       userId: userId,
       image: image,

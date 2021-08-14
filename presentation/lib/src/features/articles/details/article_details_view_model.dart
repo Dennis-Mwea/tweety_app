@@ -4,18 +4,18 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class ArticleDetailsViewModel extends CoreViewModel {
-  final GetArticleByIdUseCase _articleByIdUseCase;
+  final GetTweetByIdUseCase _articleByIdUseCase;
   late String _errorMessage;
   String get errorMessage => _errorMessage;
-  late ArticleModel _article;
-  ArticleModel get article => _article;
+  late TweetModel _article;
+  TweetModel get article => _article;
 
   ArticleDetailsViewModel(this._articleByIdUseCase);
 
   void getArticleDetails(int id) async {
     loading();
 
-    final result = await _articleByIdUseCase.getArticle(id);
+    final result = await _articleByIdUseCase.getTweet(id);
     result.when(success: (article) => _article = article, error: (type, message) => _errorMessage = message);
 
     loaded(result.isSuccessful);

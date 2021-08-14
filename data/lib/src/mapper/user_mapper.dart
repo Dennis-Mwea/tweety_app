@@ -1,5 +1,5 @@
 import 'package:data/src/datasource/local/db/app_database.dart';
-import 'package:data/src/datasource/remote/dto/login_response.dart';
+import 'package:data/src/datasource/remote/dto/user_response.dart';
 import 'package:domain/domain.dart';
 
 extension ArticleExtension on UserResponse {

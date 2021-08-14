@@ -6,6 +6,6 @@ part of 'user_dao.dart';
 // DaoGenerator
 // **************************************************************************
 
-mixin _$TagDaoMixin on DatabaseAccessor<AppDatabase> {
+mixin _$UserDaoMixin on DatabaseAccessor<AppDatabase> {
   $UsersTable get users => attachedDatabase.users;
 }

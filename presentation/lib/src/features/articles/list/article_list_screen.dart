@@ -48,7 +48,7 @@ class _ArticleListScreenState extends State<ArticleListScreen> with SingleTicker
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ArticleListViewModel>.reactive(
-      viewModelBuilder: () => ArticleListViewModel(locator<GetAllArticlesUseCase>(), locator<ToastService>()),
+      viewModelBuilder: () => ArticleListViewModel(locator<GetAllTweetsUseCase>(), locator<ToastService>()),
       onModelReady: (viewModel) => viewModel.initialise(),
       builder: (context, viewModel, child) {
         return Scaffold(

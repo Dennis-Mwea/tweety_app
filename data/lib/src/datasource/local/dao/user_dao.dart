@@ -5,10 +5,10 @@ import 'package:moor_flutter/moor_flutter.dart';
 part 'user_dao.g.dart';
 
 @UseDao(tables: [Users])
-class TagDao extends DatabaseAccessor<AppDatabase> with _$TagDaoMixin {
+class UserDao extends DatabaseAccessor<AppDatabase> with _$UserDaoMixin {
   final AppDatabase appDb;
 
-  TagDao(this.appDb) : super(appDb);
+  UserDao(this.appDb) : super(appDb);
 
   Future insertTag(Insertable<User> tag) => into(users).insert(tag);
 }

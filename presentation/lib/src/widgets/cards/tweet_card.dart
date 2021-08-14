@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:presentation/src/widgets/buttons/like_dislike_buttons.dart';
 
 class TweetCard extends StatelessWidget {
-  final ArticleModel tweet;
+  final TweetModel tweet;
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey;
 
   const TweetCard({Key? key, required this.tweet, required this.scaffoldMessengerKey}) : super(key: key);

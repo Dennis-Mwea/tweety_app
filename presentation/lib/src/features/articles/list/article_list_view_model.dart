@@ -7,10 +7,10 @@ import 'package:presentation/src/common/routes/router.dart';
 
 @injectable
 class ArticleListViewModel extends CoreViewModel {
-  final GetAllArticlesUseCase _allArticlesUseCase;
+  final GetAllTweetsUseCase _allArticlesUseCase;
   final ToastService _toastService;
-  late List<ArticleModel> _articles;
-  List<ArticleModel> get articles => _articles;
+  late List<TweetModel> _articles;
+  List<TweetModel> get articles => _articles;
   late String _errorMessage;
   String get errorMessage => _errorMessage;
   late int _currentPage;
@@ -26,7 +26,7 @@ class ArticleListViewModel extends CoreViewModel {
   void loadArticles() async {
     loading();
 
-    final results = await _allArticlesUseCase.getArticles();
+    final results = await _allArticlesUseCase.getTweets();
     results.when(success: (data) => _articles = data, error: (errorType, message) => throw Exception(errorType));
 
     loaded(results.isSuccessful);

@@ -1,10 +1,10 @@
 import 'package:data/data.dart';
 import 'package:data/src/common/constants.dart';
-import 'package:data/src/datasource/local/dao/article_dao.dart';
+import 'package:data/src/datasource/local/dao/tweet_dao.dart';
 import 'package:data/src/datasource/local/dao/user_dao.dart';
 import 'package:data/src/datasource/local/db/app_database.dart';
-import 'package:data/src/datasource/remote/service/article_service.dart';
 import 'package:data/src/datasource/remote/service/authentication_service.dart';
+import 'package:data/src/datasource/remote/service/tweet_service.dart';
 import 'package:data/src/di/locator.config.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -36,12 +36,12 @@ void _registerNetworkModules(GetIt locator) {
 }
 
 void _registerServices(GetIt locator) {
-  locator.registerLazySingleton<ArticleService>(() => ArticleService(locator<Dio>(), baseUrl: Constants.BASE_URL));
+  locator.registerLazySingleton<TweetService>(() => TweetService(locator<Dio>(), baseUrl: Constants.BASE_URL));
   locator.registerLazySingleton<AuthenticationService>(() => AuthenticationService(locator<Dio>(), baseUrl: Constants.BASE_URL));
 }
 
 void _registerDatabase(GetIt locator) async {
   locator.registerLazySingleton<AppDatabase>(() => AppDatabase(openConnection()));
-  locator.registerLazySingleton<TagDao>(() => locator.get<AppDatabase>().tagDao);
-  locator.registerLazySingleton<ArticleDao>(() => locator.get<AppDatabase>().articleDao);
+  locator.registerLazySingleton<TweetDao>(() => locator.get<AppDatabase>().tweetDao);
+  locator.registerLazySingleton<UserDao>(() => locator.get<AppDatabase>().userDao);
 }

@@ -24,9 +24,9 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
     {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   gh.factory<_i3.ArticleDetailsViewModel>(
-      () => _i3.ArticleDetailsViewModel(get<_i4.GetArticleByIdUseCase>()));
+      () => _i3.ArticleDetailsViewModel(get<_i4.GetTweetByIdUseCase>()));
   gh.factory<_i5.ArticleListViewModel>(() => _i5.ArticleListViewModel(
-      get<_i4.GetAllArticlesUseCase>(), get<_i6.ToastService>()));
+      get<_i4.GetAllTweetsUseCase>(), get<_i6.ToastService>()));
   gh.factory<_i7.ExploreViewModel>(() => _i7.ExploreViewModel());
   gh.factory<_i8.LoginViewModel>(() =>
       _i8.LoginViewModel(get<_i4.LoginUseCase>(), get<_i6.ToastService>()));

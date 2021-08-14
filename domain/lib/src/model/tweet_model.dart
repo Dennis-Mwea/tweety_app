@@ -1,4 +1,4 @@
-class ArticleModel {
+class TweetModel {
   final int id;
   final int userId;
   final String? image;
@@ -11,7 +11,7 @@ class ArticleModel {
   final int likesCount;
   final int dislikesCount;
 
-  ArticleModel({
+  TweetModel({
     required this.id,
     required this.userId,
     this.image,

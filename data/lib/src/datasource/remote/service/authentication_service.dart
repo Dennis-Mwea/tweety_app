@@ -1,4 +1,5 @@
-import 'package:data/src/datasource/remote/dto/login_response.dart';
+import 'package:data/src/datasource/remote/dto/base/base_response.dart';
+import 'package:data/src/datasource/remote/dto/user_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
@@ -9,8 +10,8 @@ abstract class AuthenticationService {
   factory AuthenticationService(Dio dio, {String baseUrl}) = _AuthenticationService;
 
   @POST('/login')
-  Future<LoginResponse> loginWithEmailAndPassword(@Body() Map<String, String> data);
+  Future<BaseResponse<UserResponse>> loginWithEmailAndPassword(@Body() Map<String, String> data);
 
   @GET('/profile')
-  Future<LoginResponse> getUser();
+  Future<BaseResponse<UserResponse>> getUser();
 }
