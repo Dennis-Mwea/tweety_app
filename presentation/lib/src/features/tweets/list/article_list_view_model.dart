@@ -10,10 +10,13 @@ class ArticleListViewModel extends CoreViewModel {
   final GetAllTweetsUseCase _allArticlesUseCase;
   final ToastService _toastService;
   late List<TweetModel> _articles;
+
   List<TweetModel> get articles => _articles;
   late String _errorMessage;
+
   String get errorMessage => _errorMessage;
   late int _currentPage;
+
   int get currentPage => _currentPage;
 
   ArticleListViewModel(this._allArticlesUseCase, this._toastService);
@@ -48,6 +51,6 @@ class ArticleListViewModel extends CoreViewModel {
   }
 
   void onUserClicked(String username) {
-    navigationService.push(ProfileViewScreenRoute());
+    navigationService.push(ProfileViewScreenRoute(username: 'Dennis'));
   }
 }
